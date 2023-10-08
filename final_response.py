@@ -9,7 +9,7 @@ load_dotenv()
 #command_output = 'main.py'
 #error_message = ''
 
-def generate_final_response(prompt, terminal_prompt, command_output , error_message):
+def generate_final_response(prompt, terminal_prompts, full_output):
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
     
     messages = [
@@ -23,11 +23,11 @@ def generate_final_response(prompt, terminal_prompt, command_output , error_mess
         },
         {
             "role": "system",
-            "content": f"Comando ejecutado en el terminal: {terminal_prompt}"
+            "content": f"Comando ejecutado en el terminal: {terminal_prompts}"
         },
         {
             "role": "system",
-            "content": f"Resultado del terminal: {command_output  if command_output  else error_message}"
+            "content": f"Resultado del terminal: {full_output}"
         }
     ]
     
@@ -41,4 +41,4 @@ def generate_final_response(prompt, terminal_prompt, command_output , error_mess
     
     return last_response
 
-#generate_final_response(prompt, terminal_prompt, command_output , error_message)
+#generate_final_response(prompt, terminal_prompt, full_output)

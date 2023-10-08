@@ -1,7 +1,8 @@
 from dotenv import load_dotenv
 import openai
 import os
-from run_command import run_command
+#from run_command import run_command
+from pexpect_shell import execute_commands_list
 
 load_dotenv()
 
@@ -13,7 +14,7 @@ def command_writer(prompt):
     messages = [
         {
             "role": "user",
-            "content": f"{prompt} (Note: Generate a Linux Ubuntu terminal commands based on this prompt. Do not write anything else besides the command terminal lines for Linux Ubuntu. All the commands are always made from the same directory. So if you are going to change directory you have to change for every command. You should specify the directory in each command. The commands you are writing will be run just as you are writing them. When you are writing you respose each command should go on one separate line. Never put two commands on the same line, and never leave empty lines. The codes will be run line by line.)"
+            "content": f"{prompt} (Note: Generate a Linux Ubuntu terminal commands based on this prompt. Do not write anything else besides the command terminal lines for Linux Ubuntu. The commands you are writing will be run just as you are writing them. When you are writing you respose each command should go on one separate line. Never put two commands on the same line, and never leave empty lines. The codes will be run line by line.)"
         }
     ]
     
@@ -37,6 +38,6 @@ def command_writer(prompt):
      #   run_command(prompt, [command])
 
     # Run each command line by line
-    run_command(prompt, terminal_prompts)
+    execute_commands_list(prompt, terminal_prompts)
 
 #command_writer(prompt)
