@@ -1,16 +1,20 @@
 from dotenv import load_dotenv
-import openai
+from openai import OpenAI
 import os
 
 load_dotenv()
 
+
+#Testing
+
 #prompt = 'Porfa lista todos los archivos en el formulario /home/eliastsoukatos/Documents/Python/Merlin/terminal_manager/'
 #terminal_prompt = 'ls /home/eliastsoukatos/Documents/Python/Merlin/terminal_manager/'
-#command_output = 'main.py'
+#full_output = 'main.py'
 #error_message = ''
 
 def generate_final_response(prompt, terminal_prompts, full_output):
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    client = OpenAI(api_key=OPENAI_API_KEY)
     
     messages = [
         {
@@ -31,14 +35,16 @@ def generate_final_response(prompt, terminal_prompts, full_output):
         }
     ]
     
-    last_response = openai.ChatCompletion.create(
-        model="gpt-4",
+    last_response = client.chat.completions.create(
+        model="gpt-4o",
         messages=messages,
-        api_key=OPENAI_API_KEY
-    )
+         )
     
-    print(last_response['choices'][0]['message']['content'])
+    print(last_response.choices[0].message.content)
     
     return last_response
+
+
+#Testing
 
 #generate_final_response(prompt, terminal_prompt, full_output)

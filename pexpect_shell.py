@@ -44,10 +44,13 @@ def execute_commands_list(prompt, terminal_prompts):
     print(full_output)
     generate_final_response(prompt, terminal_prompts, full_output)
     return full_output
-    
+
+
+
+#Testing
 
 # List of terminal commands to execute
-#terminal_prompt = ['ls', 'pwd', 'echo Hello, World!']
+#terminal_prompts = ['ls', 'pwd', 'echo Hello, World!']
 #prompt = " "
 
 # Call the function to execute all commands in the list and print the full output

@@ -1,15 +1,18 @@
 from dotenv import load_dotenv
-import openai
+from openai import OpenAI
 import os
 #from run_command import run_command
 from pexpect_shell import execute_commands_list
 
 load_dotenv()
 
+
+#Testing
 #prompt = 'escribe dos comandos, uno que crea un archivo text.txt en el desktop y luego otro que crea un archivo elias.txt en el desktop'
 
 def command_writer(prompt):
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    client = OpenAI(api_key=OPENAI_API_KEY)
     
     messages = [
         {
@@ -18,14 +21,13 @@ def command_writer(prompt):
         }
     ]
     
-    second_response = openai.ChatCompletion.create(
-        model="gpt-4",
+    second_response = client.chat.completions.create(
+        model="gpt-4o",
         messages=messages,
-        api_key=OPENAI_API_KEY
     )
     
     # Extract the content from the response
-    terminal_prompts_str = second_response['choices'][0]['message']['content']
+    terminal_prompts_str = second_response.choices[0].message.content
     
     # Split the content into lines and store each line as an item in a list
     terminal_prompts = terminal_prompts_str.strip().split('\n')
@@ -40,4 +42,6 @@ def command_writer(prompt):
     # Run each command line by line
     execute_commands_list(prompt, terminal_prompts)
 
+
+#Testing
 #command_writer(prompt)
