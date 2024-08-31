@@ -1,9 +1,10 @@
+import asyncio
 from openai_response import run_conversation
 
-def input_prompt():
-    prompt = input("Please enter your text: ")
-    run_conversation(prompt)
-    input_prompt()
+async def input_prompt():
+    while True:
+        prompt = input("Please enter your text: ")
+        await run_conversation(prompt)
 
 if __name__ == "__main__":
-    input_prompt()
+    asyncio.run(input_prompt())
