@@ -2,14 +2,17 @@ import os
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
 from command_executor import execute_commands
+from directory_manager import directory_manager
 
 load_dotenv()
 
 client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 async def run_conversation(prompt):
+    directory_info = directory_manager.get_all_directories()
+    
     messages = [
-        {"role": "system", "content": "You are a virtual assistant that responds to questions and can execute terminal commands when necessary."},
+        {"role": "system", "content": f"You are a virtual assistant that responds to questions and can execute terminal commands when necessary. You have access to the following directories:\n{directory_info}\nWhen referring to these directories in commands, use the full path."},
         {"role": "user", "content": prompt}
     ]
 
